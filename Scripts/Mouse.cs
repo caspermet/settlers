@@ -24,10 +24,9 @@ public class Mouse : MonoBehaviour
                 if (hit.transform.name == "Settlement")
                 {
                     Debug.Log("settlement clcik");
+                  
+                    PlaceSettlement.SetSettlement(hit.transform);
 
-                    
-                    var town = hit.transform.GetComponent<SettlementLocalization>();
-                    town.CreateSettlement();
                     /*
                     for (int i = 0; i < nearTown.Count; i++)
                     {

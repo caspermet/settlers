@@ -78,15 +78,12 @@ public class TileGenerate : MonoBehaviour, ITileGenerator
         }
 
         int numberOfTile = (int)(mapSize.x * mapSize.y) - (int)mapSize.y / 2 - offset;
-        Debug.Log(allTile.Count);
         allTile.Shuffle();
         List<Tile> newList = new List<Tile>();
         int k = 0;
 
         for (int i = 0; i < numberOfTile; i++)
         {
-            Debug.Log(k);
-            Debug.Log(allTile.Count);
             newList.Add(allTile[k]);
             k++;
 
