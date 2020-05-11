@@ -13,6 +13,11 @@ public class MapGenerator : MonoBehaviour
     public RouteLocalization routeLocalization;
     public Tile tile;
 
+    public List<Tile> typeOftiles;
+
+    public Tile dessert;
+
+
     ITileGenerator tileGenerator;
     ITileGenerator settlementGenerotor;
     ITileGenerator routeGenerator;
@@ -26,8 +31,8 @@ public class MapGenerator : MonoBehaviour
     }
 
     public void GenerateMap()
-    {
-        tileGenerator = new TileGenerate(mapSize, transform, tile);
+    {    
+        tileGenerator = new TileGenerate(mapSize, transform, typeOftiles);
         tileMap = tileGenerator.Generate();
 
         settlementGenerotor = new SettlementGenerator(mapSize, transform, townLocalization, tileMap);

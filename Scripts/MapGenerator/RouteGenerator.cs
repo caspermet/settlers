@@ -23,9 +23,9 @@ public class RouteGenerator : MonoBehaviour, ITileGenerator
     {
         Debug.Log("Creating settlers places");
 
-        if (mapGeneratorTransform.FindChild(holderName))
+        if (mapGeneratorTransform.Find(holderName))
         {
-            DestroyImmediate(mapGeneratorTransform.FindChild(holderName).gameObject);
+            DestroyImmediate(mapGeneratorTransform.Find(holderName).gameObject);
         }
 
         mapHolder = new GameObject(holderName).transform;

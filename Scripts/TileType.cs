@@ -8,5 +8,7 @@ public enum TileType
     BRICK,
     WOOD,
     WHEAT,
-    SEA
+    SEA,
+    ORE,
+    DESERT
 }

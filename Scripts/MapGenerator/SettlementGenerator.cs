@@ -29,9 +29,9 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
         Debug.Log("Creating settlers places");       
 
         string holderName = "Generated Settler";
-        if (mapGeneratorTransform.FindChild(holderName))
+        if (mapGeneratorTransform.Find(holderName))
         {
-            DestroyImmediate(mapGeneratorTransform.FindChild(holderName).gameObject);
+            DestroyImmediate(mapGeneratorTransform.Find(holderName).gameObject);
         }
 
         Transform mapHolder = new GameObject(holderName).transform;
