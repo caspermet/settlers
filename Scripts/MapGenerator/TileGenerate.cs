@@ -26,7 +26,7 @@ public class TileGenerate : MonoBehaviour, ITileGenerator
         Debug.Log("Creating Map");
 
         int numberNonSeaTile = NumberNonSeaTiles();
-     
+
 
         tileMap = new Dictionary<Tuple<int, int>, Transform>();
         List<Tile> allTile = RandomGenerateTile();
@@ -41,6 +41,7 @@ public class TileGenerate : MonoBehaviour, ITileGenerator
 
         Transform mapHolder = new GameObject(holderName).transform;
         mapHolder.parent = mapGeneratorTransform;
+        mapHolder.position = new Vector3(0, 0, 0);
 
         int k = 0;
         Tile tile;
@@ -53,6 +54,7 @@ public class TileGenerate : MonoBehaviour, ITileGenerator
                 {
                     tile = allTile[k];
                     Vector3 tilePosition = CoordOfTilePosition(x, y);
+                    
                     Tile newTile = Instantiate(tile, tilePosition, Quaternion.Euler(Vector3.right)) as Tile;
 
                     newTile.transform.parent = mapHolder;
@@ -107,12 +109,13 @@ public class TileGenerate : MonoBehaviour, ITileGenerator
         float xLocal = x;
         float yLocal = CalculYCoor(y) - 0.25f * CalculYCoor(y);
 
+
         if (Helper.IsOdd(y))
         {
             xLocal -= 0.5f;
         }
 
-        return new Vector3(xLocal, 0, yLocal);
+        return Helper.ShiftObject(new Vector3(xLocal, 0, yLocal), mapSize);
     }
 
     private float CalculYCoor(int y)

@@ -29,7 +29,9 @@ public class RouteGenerator : MonoBehaviour, ITileGenerator
         }
 
         mapHolder = new GameObject(holderName).transform;
-        mapHolder.parent = mapGeneratorTransform;
+        mapHolder.parent = mapGeneratorTransform;       
+        mapHolder.position = new Vector3(0, 0, 0);
+
 
         foreach (var settlement in settlementPosition)
         {

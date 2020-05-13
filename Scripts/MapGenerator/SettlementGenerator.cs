@@ -36,6 +36,7 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
 
         Transform mapHolder = new GameObject(holderName).transform;
         mapHolder.parent = mapGeneratorTransform;
+        mapHolder.position = new Vector3(0, 0, 0);
 
         float yShift = -2 / (float)Math.Sqrt(3) * 0.5f;
         float yShiftValueOdd = (float)Math.Sqrt(Math.Pow(1 / (float)Math.Sqrt(3), 2) - Math.Pow(0.5f, 2));
@@ -52,6 +53,7 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
 
                     settlement.transform.parent = mapHolder;
                     settlement.name = settlementName;
+                    
 
                     settlementMap.Add(Tuple.Create(x, y), settlement.transform);
                     ConnectSettlementToAllTiles(x, y, settlement);
@@ -116,6 +118,6 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
             xLocal = x - 0.5f;
         }
 
-        return new Vector3(xLocal, 0.232f, yLocal);
+        return Helper.ShiftObject(new Vector3(xLocal, 0.232f, yLocal), mapSize);
     }
 }
