@@ -8,8 +8,22 @@ public class RouteLocalization : MonoBehaviour
     public Transform settlement1;
     public Transform settlement2;
     public Transform routePrefab;
+    public float scale { get; set; }
 
     Transform route;
+
+    private void Start()
+    {
+        var mapSetting = FindObjectOfType<MapSettings>();
+
+        routePrefab = mapSetting.routePrefab;
+    }
+
+    public RouteLocalization(float scale)
+    {
+        this.scale = scale;
+
+    }
 
     public void CreateRoute()
     {
@@ -20,6 +34,7 @@ public class RouteLocalization : MonoBehaviour
 
         route = Instantiate(routePrefab, transform.position, new Quaternion());
         route.parent = transform;
+        route.transform.localScale *= scale;
 
         var looAt = settlement1.position;
         transform.LookAt(looAt);

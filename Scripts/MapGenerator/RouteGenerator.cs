@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RouteGenerator : MonoBehaviour, ITileGenerator
 {
+    float scale;
     Dictionary<Tuple<int, int>, Transform> settlementPosition;
     RouteLocalization routePrefab;
     Transform mapGeneratorTransform;
@@ -12,11 +13,12 @@ public class RouteGenerator : MonoBehaviour, ITileGenerator
     static string routeName = "Route";
 
     string holderName = "Generate route";
-    public RouteGenerator(Dictionary<Tuple<int, int>, Transform> settlementPosition, Transform transform, RouteLocalization route)
+    public RouteGenerator(Dictionary<Tuple<int, int>, Transform> settlementPosition, Transform transform, RouteLocalization route, float scale)
     {
         this.settlementPosition = settlementPosition;
         this.routePrefab = route;
         mapGeneratorTransform = transform;
+        this.scale = scale;
     }
 
     public Dictionary<Tuple<int, int>, Transform> Generate()
@@ -86,7 +88,7 @@ public class RouteGenerator : MonoBehaviour, ITileGenerator
             }
 
             Vector3 position = (settlement.position - settlementPosition[key].position) / 2 + settlementPosition[key].position;
-            position.y = 0.232f;
+            position.y = 0.232f * scale;
             RouteLocalization route = Instantiate(routePrefab, position, Quaternion.Euler(Vector3.right)) as RouteLocalization;
 
             settlement.gameObject.GetComponent<SettlementLocalization>().routes.Add(route);
@@ -96,6 +98,8 @@ public class RouteGenerator : MonoBehaviour, ITileGenerator
             route.settlement1 = settlement;
             route.settlement2 = settlementPosition[key];
             route.name = routeName;
+            route.transform.localScale *= scale;
+            route.scale = scale;
         }
         else
         {

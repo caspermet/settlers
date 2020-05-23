@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Color color;
+    public int order;
 
-    // Update is called once per frame
-    void Update()
+    public Transform[] notSetSettlement;
+    public Transform[] notSetCity;
+    public Transform[] notSetRoute;
+
+    public List<SettlementLocalization> mySettlements;
+
+    public Player(Color color, int order)
     {
-        
+        this.color = color;
+        this.order = order;
+
+        mySettlements = new List<SettlementLocalization>();
     }
 }

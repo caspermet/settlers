@@ -6,19 +6,21 @@ using UnityEngine;
 public class SettlementGenerator : MonoBehaviour, ITileGenerator
 {
     const string settlementName = "Settlement";
-   
+
     Vector2 mapSize;
     Dictionary<Tuple<int, int>, Transform> tileMap;
     Transform mapGeneratorTransform;
     SettlementLocalization townLocalization;
     Dictionary<Tuple<int, int>, Transform> settlementMap;
+    float scale;
 
-    public SettlementGenerator(Vector2 mapSize, Transform transform, SettlementLocalization townLocalization, Dictionary<Tuple<int, int>, Transform> tileMap)
+    public SettlementGenerator(Vector2 mapSize, Transform transform, SettlementLocalization townLocalization, Dictionary<Tuple<int, int>, Transform> tileMap, float scale)
     {
         this.mapSize = mapSize;
         this.mapGeneratorTransform = transform;
         this.townLocalization = townLocalization;
         this.tileMap = tileMap;
+        this.scale = scale;
 
         settlementMap = new Dictionary<Tuple<int, int>, Transform>();
     }
@@ -26,7 +28,7 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
     [Obsolete]
     public Dictionary<Tuple<int, int>, Transform> Generate()
     {
-        Debug.Log("Creating settlers places");       
+        Debug.Log("Creating settlers places");
 
         string holderName = "Generated Settler";
         if (mapGeneratorTransform.Find(holderName))
@@ -49,11 +51,12 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
                 if (!((y == 0 && x == 0) || (y == 0 && x == (int)mapSize.x) || (y == maxYCoord - 1 && x == 0) || (y == maxYCoord - 1 && x >= (int)mapSize.x && Helper.IsOdd(y)) || ((y % 4 == 1 || y % 4 == 2) && x > (int)mapSize.x - 1)))
                 {
                     Vector3 tilePosition = CoordOfSettler(x, y, yShift);
-                    SettlementLocalization settlement = Instantiate(townLocalization, tilePosition, Quaternion.Euler(Vector3.right)) as SettlementLocalization;
+                    SettlementLocalization settlement = Instantiate(townLocalization, tilePosition * scale, Quaternion.Euler(Vector3.right)) as SettlementLocalization;
 
                     settlement.transform.parent = mapHolder;
                     settlement.name = settlementName;
-                    
+                    settlement.transform.localScale *= scale;
+                    settlement.scale = scale;
 
                     settlementMap.Add(Tuple.Create(x, y), settlement.transform);
                     ConnectSettlementToAllTiles(x, y, settlement);
@@ -78,7 +81,7 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
         int oddShift = 0;
 
         if (!Helper.IsOdd(y))
-        {          
+        {
             if (y % 4 == 0)
                 oddShift = -1;
 
@@ -87,7 +90,7 @@ public class SettlementGenerator : MonoBehaviour, ITileGenerator
             AddSettlementToTile(x + oddShift, nearTileY, settlement.transform);
         }
         else
-        {           
+        {
             if (y % 4 == 1)
                 oddShift = 1;
 

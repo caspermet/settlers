@@ -7,15 +7,17 @@ using System.Security.Cryptography;
 public class TileGenerate : MonoBehaviour, ITileGenerator
 {
     Vector2 mapSize;
+    float scale;
     Dictionary<Tuple<int, int>, Transform> tileMap;
     Transform mapGeneratorTransform;
     List<Tile> allTile;
 
-    public TileGenerate(Vector2 mapSize, Transform transform, List<Tile> allTile)
+    public TileGenerate(Vector2 mapSize, Transform transform, List<Tile> allTile, float scale)
     {
         this.mapSize = mapSize;
         this.mapGeneratorTransform = transform;
         this.allTile = allTile;
+        this.scale = scale;
     }
 
     public Transform Transform { get; }
@@ -55,10 +57,11 @@ public class TileGenerate : MonoBehaviour, ITileGenerator
                     tile = allTile[k];
                     Vector3 tilePosition = CoordOfTilePosition(x, y);
                     
-                    Tile newTile = Instantiate(tile, tilePosition, Quaternion.Euler(Vector3.right)) as Tile;
+                    Tile newTile = Instantiate(tile, tilePosition * scale, Quaternion.Euler(Vector3.right)) as Tile;
 
                     newTile.transform.parent = mapHolder;
                     newTile.Init(false, numbersOfTIles[k]);
+                    newTile.transform.localScale *= scale;
 
                     tileMap.Add(Tuple.Create(x, y), newTile.transform);
                     k++;

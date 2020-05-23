@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public float tileSize = 1;
+    public float scale = 1;
     public Vector2 mapSize;
     public SettlementLocalization townLocalization;
     public RouteLocalization routeLocalization;
@@ -25,20 +25,15 @@ public class MapGenerator : MonoBehaviour
     Dictionary<Tuple<int, int>, Transform> tileMap;
     Dictionary<Tuple<int, int>, Transform> settlementMap;
 
-    private void Start()
-    {
-        GenerateMap();
-    }
-
     public void GenerateMap()
     {    
-        tileGenerator = new TileGenerate(mapSize, transform, typeOftiles);
+        tileGenerator = new TileGenerate(mapSize, transform, typeOftiles, scale);
         tileMap = tileGenerator.Generate();
 
-        settlementGenerotor = new SettlementGenerator(mapSize, transform, townLocalization, tileMap);
+        settlementGenerotor = new SettlementGenerator(mapSize, transform, townLocalization, tileMap, scale);
         settlementMap = settlementGenerotor.Generate();
 
-        routeGenerator = new RouteGenerator(settlementMap, transform, routeLocalization);
+        routeGenerator = new RouteGenerator(settlementMap, transform, routeLocalization, scale);
         routeGenerator.Generate();
     }
 }
