@@ -35,22 +35,24 @@ public class PlayerController
         players[i] = player;
 
         if (i == 0)
-            GameStateController.activePlayer = player;
+        {
+            GameStateController.ActivePlayer = player;            
+        }
     }
 
     public void NextPlayer()
     {
         for (int i = 0; i < players.Length; i++)
         {
-            if (GameStateController.activePlayer.order == players[i].order)
+            if (GameStateController.ActivePlayer.order == players[i].order)
             {
                 if (i + 1 == players.Length)
                 {
-                    GameStateController.activePlayer = players[0];
+                    GameStateController.ActivePlayer = players[0];
                 }
                 else
                 {
-                    GameStateController.activePlayer = players[i + 1];
+                    GameStateController.ActivePlayer = players[i + 1];
                 }
 
                 return;

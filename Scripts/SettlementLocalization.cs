@@ -71,8 +71,8 @@ public class SettlementLocalization : MonoBehaviour
         isSettlementInPrePlace = false;
         isSettlementPlace = true;
 
-        owner = GameStateController.activePlayer;
-        GameStateController.activePlayer.mySettlements.Add(this);
+        owner = GameStateController.ActivePlayer;
+        GameStateController.ActivePlayer.mySettlements.Add(this);
     }
 
     public void PreCreateSettlement()
@@ -83,7 +83,7 @@ public class SettlementLocalization : MonoBehaviour
         Debug.Log("Create PreSettlement");
         settlement = Instantiate(settlementPrefab, transform.position, new Quaternion());
         settlement.parent = transform;
-        settlement.GetComponent<Renderer>().material.color = GameStateController.activePlayer.color;
+        settlement.GetComponent<Renderer>().material.color = GameStateController.ActivePlayer.color;
         isSettlementInPrePlace = true;
 
         startMarker = new Vector3(0, 0.1f, 0);

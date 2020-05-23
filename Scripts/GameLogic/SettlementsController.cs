@@ -27,7 +27,7 @@ public class SettlementsController : MonoBehaviour
         if ((activeSettlement != null && activeSettlement != e) || activeSettlement == null && GameStateController.State != GameState.NORMAL)
             return;
 
-        if (GameStateController.activePlayer.mySettlements.Count >= FindObjectOfType<MapSettings>().maxNumberOfSettlements)
+        if (GameStateController.ActivePlayer.mySettlements.Count >= FindObjectOfType<MapSettings>().maxNumberOfSettlements)
         {
             return;
         }

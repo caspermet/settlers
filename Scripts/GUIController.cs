@@ -15,11 +15,8 @@ public class GUIController : MonoBehaviour
     private void Start()
     {
         GameStateController.OnGameStateChange += OnChangeEvenet;
-    }
-
-    private void OnChangeEvenet(object sender, GameState state)
-    {
-        SetState(state);
+        GameStateController.OnActivePlayerChange += OnNextPlayer;
+        ChangeCollor();
     }
 
     public void NextState()
@@ -64,6 +61,16 @@ public class GUIController : MonoBehaviour
         }
     }
 
+    public void OnNextPlayer(object sender, EventArgs e)
+    {
+        ChangeCollor();
+    }
+
+    private void OnChangeEvenet(object sender, GameState state)
+    {
+        SetState(state);
+    }
+
     private void ChangeName(string name)
     {
         var nextStateButton = transform.Find("NextState");
@@ -72,6 +79,6 @@ public class GUIController : MonoBehaviour
 
     public void ChangeCollor()
     {
-        transform.Find("NextState").GetComponentInChildren<Text>().color = GameStateController.activePlayer.color;
+        transform.Find("NextState").GetComponentInChildren<Text>().color = GameStateController.ActivePlayer.color;
     }
 }

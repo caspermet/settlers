@@ -6,21 +6,39 @@ using UnityEngine.Events;
 
 public static class GameStateController
 {
-    public static Player activePlayer;
+    private static GameState state;
+    private static Player activePlayer;
+
     public static bool isStart;
 
     public static event EventHandler<GameState> OnGameStateChange;
+    public static event EventHandler OnActivePlayerChange;
 
     public static GameState State
     {
         get
         {
-            return State;
+            return state;
         }
         set
         {
-            State = value;
+            state = value;
             OnGameStateChange?.Invoke(null, value);
         }
+    }
+
+    public static Player ActivePlayer
+    {
+        get
+        {
+            return activePlayer;
+        }
+        set
+        {
+            Debug.Log("tesda");
+            activePlayer = value;
+            OnActivePlayerChange?.Invoke(null, EventArgs.Empty);
+        }
+       
     }
 }

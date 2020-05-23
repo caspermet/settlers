@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     private void NexState(object sender, Transform e)
     {
         playerController.NextPlayer();
-        gUIController.ChangeCollor();
 
         switch (GameStateController.State)
         {
